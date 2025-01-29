@@ -7,7 +7,7 @@ export default {
 	nodeResolve: true,
 	appIndex: './public/index.html',
 	rootDir: './public',
-	middleware: [proxy('/api/', { target: 'http://localhost:1337' })],
+	middleware: [proxy('/api/', { target: 'http://localhost:6945' })],
 	plugins: [
 		esbuildPlugin({
 			ts: true,

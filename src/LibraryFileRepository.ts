@@ -13,6 +13,18 @@ export class LibraryFileRepository {
 			.merge(['filepath', 'codec', 'sizeBytes']);
 	}
 
+	async getAll() {
+		return await this.table().select(
+			'id',
+			'mediaLibraryId',
+			'filepath',
+			'codec',
+			'sizeBytes',
+			'updatedAt',
+			'createdAt',
+		);
+	}
+
 	async getForMediaLibrary(mediaLibraryId: number) {
 		return await this.table()
 			.select(

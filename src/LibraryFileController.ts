@@ -20,3 +20,7 @@ controller.get('/media_libraries/:mediaLibraryId/files', async (req, res) => {
 		.status(200)
 		.send(await libraryFileRepository.getForMediaLibrary(library.id));
 });
+
+controller.get('/files', async (_, res) => {
+	res.status(200).send(await libraryFileRepository.getAll());
+});

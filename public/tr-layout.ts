@@ -6,7 +6,7 @@ import { classMap } from 'lit/directives/class-map.js';
 export class TRLayout extends LitElement {
 	static override styles = [
 		css`
-      :root {
+      :host {
         --nav-opened-size: 300px;
         --nav-closed-size: 56px;
       }

@@ -12,6 +12,7 @@ const config: Knex.Config = {
 	},
 	postProcessResponse: (result) => humps.camelizeKeys(result),
 	wrapIdentifier: (value, origImpl) => origImpl(humps.decamelize(value)),
+	useNullAsDefault: true,
 };
 
 export default config;

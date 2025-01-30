@@ -6,24 +6,29 @@ import { classMap } from 'lit/directives/class-map.js';
 export class TRLayout extends LitElement {
 	static override styles = [
 		css`
+      :root {
+        --nav-opened-size: 300px;
+        --nav-closed-size: 56px;
+      }
+
       md-list {
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
-        width: 56px;
+        width: var(--nav-closed-size);
         background-color: var(--md-sys-color-surface-container);
         transition: width 100ms ease-in-out;
       }
 
       md-list.nav-open {
-        width: 300px;
+        width: var(--nav-opened-size);
       }
 
       main {
         position: absolute;
         top: 0;
-        left: 56px;
+        left: var(--nav-closed-size);
         bottom: 0;
         right: 0;
         transition: left 100ms ease-in-out;
@@ -31,7 +36,7 @@ export class TRLayout extends LitElement {
       }
 
       main.nav-open {
-        left: 300px;
+        left: var(--nav-opened-size);
       }
     `,
 	];

@@ -71,7 +71,7 @@ export class ScanLibraryService {
 				const videoStream = streams.find(
 					(stream) => stream.codec_type === 'video',
 				);
-				await this.libraryFileRepository.create({
+				await this.libraryFileRepository.create(library.id, {
 					filepath: file,
 					codec: videoStream?.codec_name,
 					sizeBytes: Number.parseInt(format.size),

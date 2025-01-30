@@ -3,6 +3,7 @@ import type { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
 	await knex.schema.createTable('libraryFile', (table) => {
 		table.increments('id');
+		table.integer('mediaLibraryId').notNullable().references('mediaLibrary.id');
 		table.string('filepath').notNullable().unique();
 		table.string('codec').notNullable();
 		table.integer('sizeBytes').notNullable();

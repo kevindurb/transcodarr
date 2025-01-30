@@ -13,6 +13,7 @@ declare module 'knex/types/tables.js' {
 
 	interface LibraryFile {
 		id: number;
+		mediaLibraryId: number;
 		filepath: string;
 		codec: string;
 		sizeBytes: number;

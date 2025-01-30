@@ -5,6 +5,7 @@ import express, {
 	type Response,
 } from 'express';
 import { ZodError } from 'zod';
+import { LibraryFileController } from './LibraryFileController.ts';
 import { MediaLibraryController } from './MediaLibraryController.ts';
 import { TaskController } from './TaskController.ts';
 
@@ -12,6 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(MediaLibraryController);
 app.use(TaskController);
+app.use(LibraryFileController);
 
 app.use((err: unknown, _: Request, res: Response, next: NextFunction) => {
 	if (res.headersSent) {

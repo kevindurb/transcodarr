@@ -27,6 +27,7 @@ export class TRLayout extends LitElement {
         bottom: 0;
         right: 0;
         transition: left 100ms ease-in-out;
+        background-color: var(--md-sys-color-surface);
       }
 
       main.nav-open {
@@ -71,7 +72,7 @@ export class TRLayout extends LitElement {
           ${this.navOpen ? 'Settings' : null}
         </md-list-item>
       </md-list>
-      <main><slot></slot></main>
+      <main class=${classMap({ 'nav-open': this.navOpen })}><slot></slot></main>
     `;
 	}
 }

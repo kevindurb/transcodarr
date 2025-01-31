@@ -2,19 +2,19 @@ import { Task } from '@lit/task';
 import type { MediaLibrary } from 'knex/types/tables.js';
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { getLibraries } from './api.ts';
 
 @customElement('tr-library-list')
 export class TRLibraryList extends LitElement {
-	private libraryListTask = new Task<[], MediaLibrary[]>(this, {
-		task: () =>
-			fetch('/api/media_libraries').then((response) => response.json()),
+	private getLibrariesTask = new Task(this, {
+		task: () => getLibraries(),
 		args: () => [],
 	});
 
 	protected override render() {
 		return html`
       <md-list>
-        ${this.libraryListTask.render({
+        ${this.getLibrariesTask.render({
 					complete: (libraries) =>
 						libraries.map(
 							(library) =>

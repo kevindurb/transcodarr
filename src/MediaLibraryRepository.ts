@@ -18,7 +18,7 @@ export class MediaLibraryRepository {
 
 	async create(data: UpdateData) {
 		const [id] = await this.table().insert(data);
-		if (!id) throw new Error('Unknown error creating media library');
+		if (!id) throw new Error();
 		return id;
 	}
 

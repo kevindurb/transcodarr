@@ -1,4 +1,4 @@
-import type { LibraryFile, MediaLibrary } from 'knex/types/tables.js';
+import type { LibraryFile, MediaLibrary, Preset } from 'knex/types/tables.js';
 
 const fetchJSON = (
 	input: string | URL | globalThis.Request,
@@ -12,3 +12,5 @@ export const getLibraryFiles = (
 	mediaLibraryId: number,
 ): Promise<LibraryFile[]> =>
 	fetchJSON(`/api/media_libraries/${mediaLibraryId}/files`);
+
+export const getPresets = (): Promise<Preset[]> => fetchJSON('/api/presets');

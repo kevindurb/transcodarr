@@ -56,6 +56,7 @@ export class TRLayout extends LitElement {
 		['Transcodarr', 'menu', this.toggleNav],
 		['Home', 'home', '/'],
 		['Libraries', 'database', '/libraries'],
+		['Presets', 'tune', '/presets'],
 		['Queue', 'queue', '/queue'],
 		['Settings', 'settings', '/settings'],
 	] as const;

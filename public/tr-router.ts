@@ -2,11 +2,12 @@ import { Router } from '@lit-labs/router';
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { safeParseInt } from './utils/numbers.ts';
 
 import './tr-layout.ts';
 import './tr-library-list.ts';
 import './tr-library-files.ts';
-import { safeParseInt } from './utils/numbers.ts';
+import './tr-preset-list.ts';
 
 @customElement('tr-router')
 export class TRRouter extends LitElement {
@@ -21,6 +22,10 @@ export class TRRouter extends LitElement {
 				html`<tr-library-files
           mediaLibraryId=${ifDefined(safeParseInt(mediaLibraryId))}
         ></tr-library-files>`,
+		},
+		{
+			path: '/presets',
+			render: () => html`<tr-preset-list></tr-preset-list>`,
 		},
 	]);
 

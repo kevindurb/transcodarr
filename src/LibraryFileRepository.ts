@@ -15,7 +15,7 @@ export class LibraryFileRepository {
 		'sizeBytes',
 		'updatedAt',
 		'createdAt',
-	];
+	] as const;
 
 	async create(mediaLibraryId: number, data: UpdateData) {
 		await this.table()

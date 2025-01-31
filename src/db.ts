@@ -23,7 +23,16 @@ declare module 'knex/types/tables.js' {
 		updatedAt: Date;
 	}
 
+	interface Preset {
+		id: number;
+		name: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}
+
 	interface Tables {
 		mediaLibrary: MediaLibrary;
+		libraryFile: LibraryFile;
+		preset: Preset;
 	}
 }

@@ -1,6 +1,9 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { map } from 'lit/directives/map.js';
+import { when } from 'lit/directives/when.js';
 
 @customElement('tr-layout')
 export class TRLayout extends LitElement {
@@ -49,34 +52,56 @@ export class TRLayout extends LitElement {
 		return localStorage.getItem('tr-nav-open') !== 'false';
 	}
 
+	private navLinks = [
+		['Transcodarr', 'menu', this.toggleNav],
+		['Home', 'home', '/'],
+		['Libraries', 'database', '/libraries'],
+		['Queue', 'queue', '/queue'],
+		['Settings', 'settings', '/settings'],
+	] as const;
+
 	private toggleNav() {
 		this.navOpen = !this.navOpen;
 	}
 
-	protected override render() {
+	private renderNavLink(
+		name: string,
+		icon: string,
+		action: string | (() => void),
+	) {
+		const isLink = typeof action === 'string';
+		const href = isLink ? action : undefined;
+		const onClick = isLink ? undefined : action;
+
+		return html`
+      <md-list-item
+        href=${ifDefined(href)}
+        @click=${onClick}
+        type=${isLink ? 'link' : 'button'}
+      >
+        <md-icon slot="start">${icon}</md-icon>
+        ${when(
+					this.navOpen,
+					() => name,
+					() => null,
+				)}
+      </md-list-item>
+    `;
+	}
+
+	private renderNav() {
 		return html`
       <md-list class=${classMap({ 'nav-open': this.navOpen })}>
-        <md-list-item @click=${this.toggleNav} type="button">
-          <md-icon slot="start">menu</md-icon>
-          ${this.navOpen ? 'Transcodarr' : null}
-        </md-list-item>
-        <md-list-item href="/" type="link">
-          <md-icon slot="start">home</md-icon>
-          ${this.navOpen ? 'Home' : null}
-        </md-list-item>
-        <md-list-item href="/libraries" type="link">
-          <md-icon slot="start">database</md-icon>
-          ${this.navOpen ? 'Libraries' : null}
-        </md-list-item>
-        <md-list-item href="/queue" type="link">
-          <md-icon slot="start">queue</md-icon>
-          ${this.navOpen ? 'Queue' : null}
-        </md-list-item>
-        <md-list-item href="/settings" type="link">
-          <md-icon slot="start">settings</md-icon>
-          ${this.navOpen ? 'Settings' : null}
-        </md-list-item>
+        ${map(this.navLinks, ([name, icon, href]) =>
+					this.renderNavLink(name, icon, href),
+				)}
       </md-list>
+    `;
+	}
+
+	protected override render() {
+		return html`
+      ${this.renderNav()}
       <main class=${classMap({ 'nav-open': this.navOpen })}><slot></slot></main>
     `;
 	}

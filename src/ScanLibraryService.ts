@@ -73,7 +73,9 @@ export class ScanLibraryService {
 				);
 				await this.libraryFileRepository.create(library.id, {
 					filepath: file,
-					codec: videoStream?.codec_name,
+					videoCodec: videoStream?.codec_name,
+					videoWidth: videoStream?.width,
+					videoHeight: videoStream?.height,
 					sizeBytes: Number.parseInt(format.size),
 				});
 			} catch (err) {

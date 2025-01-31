@@ -15,7 +15,9 @@ declare module 'knex/types/tables.js' {
 		id: number;
 		mediaLibraryId: number;
 		filepath: string;
-		codec: string;
+		videoCodec: string;
+		videoWidth: number;
+		videoHeight: number;
 		sizeBytes: number;
 		createdAt: Date;
 		updatedAt: Date;

@@ -1,5 +1,4 @@
 import { Task } from '@lit/task';
-import type { MediaLibrary } from 'knex/types/tables.js';
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { getLibraries } from './api.ts';

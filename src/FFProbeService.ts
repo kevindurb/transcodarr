@@ -13,6 +13,8 @@ interface FFProbeStream {
 	index: number;
 	codec_name: string;
 	codec_type: 'video' | 'audio' | 'data';
+	width: number;
+	height: number;
 }
 
 interface FFProbeOutput {

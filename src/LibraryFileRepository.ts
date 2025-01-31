@@ -5,37 +5,38 @@ type UpdateData = Partial<LibraryFile>;
 
 export class LibraryFileRepository {
 	private table = () => db('libraryFile');
+	private static columns = [
+		'id',
+		'mediaLibraryId',
+		'filepath',
+		'videoCodec',
+		'videoWidth',
+		'videoHeight',
+		'sizeBytes',
+		'updatedAt',
+		'createdAt',
+	];
 
 	async create(mediaLibraryId: number, data: UpdateData) {
 		await this.table()
 			.insert({ mediaLibraryId, ...data })
 			.onConflict('filepath')
-			.merge(['filepath', 'codec', 'sizeBytes']);
+			.merge([
+				'filepath',
+				'videoCodec',
+				'videoWidth',
+				'videoHeight',
+				'sizeBytes',
+			]);
 	}
 
 	async getAll() {
-		return await this.table().select(
-			'id',
-			'mediaLibraryId',
-			'filepath',
-			'codec',
-			'sizeBytes',
-			'updatedAt',
-			'createdAt',
-		);
+		return await this.table().select(LibraryFileRepository.columns);
 	}
 
 	async getForMediaLibrary(mediaLibraryId: number) {
 		return await this.table()
-			.select(
-				'id',
-				'mediaLibraryId',
-				'filepath',
-				'codec',
-				'sizeBytes',
-				'updatedAt',
-				'createdAt',
-			)
+			.select(LibraryFileRepository.columns)
 			.where({ mediaLibraryId });
 	}
 }

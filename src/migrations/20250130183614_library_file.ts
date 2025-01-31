@@ -5,7 +5,9 @@ export async function up(knex: Knex): Promise<void> {
 		table.increments('id');
 		table.integer('mediaLibraryId').notNullable().references('mediaLibrary.id');
 		table.string('filepath').notNullable().unique();
-		table.string('codec').notNullable();
+		table.string('videoCodec').notNullable();
+		table.integer('videoWidth').notNullable();
+		table.integer('videoHeight').notNullable();
 		table.integer('sizeBytes').notNullable();
 		table.timestamps(false, true);
 	});

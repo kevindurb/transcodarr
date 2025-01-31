@@ -6,6 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import './tr-layout.ts';
 import './tr-library-list.ts';
 import './tr-library-files.ts';
+import { safeParseInt } from './utils/numbers.ts';
 
 @customElement('tr-router')
 export class TRRouter extends LitElement {
@@ -18,9 +19,7 @@ export class TRRouter extends LitElement {
 			path: '/libraries/:mediaLibraryId',
 			render: ({ mediaLibraryId }) =>
 				html`<tr-library-files
-          mediaLibraryId=${ifDefined(
-						mediaLibraryId ? Number.parseInt(mediaLibraryId) : undefined,
-					)}
+          mediaLibraryId=${ifDefined(safeParseInt(mediaLibraryId))}
         ></tr-library-files>`,
 		},
 	]);

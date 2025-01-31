@@ -3,9 +3,7 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "concurrently -c cyan,magenta npm:dev:*",
-		"dev:api": "node --watch --env-file=.env ./src/index.ts",
-		"dev:web": "web-dev-server",
+		"start": "node --watch --env-file=.env ./src/index.ts",
 		"check": "tsc && lit-analyzer public"
 	},
 	"repository": {

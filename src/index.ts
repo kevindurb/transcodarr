@@ -1,3 +1,5 @@
+import { startDevServer } from '@web/dev-server';
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 import bodyParser from 'body-parser';
 import express, {
 	type NextFunction,
@@ -28,6 +30,26 @@ app.use((err: unknown, _: Request, res: Response, next: NextFunction) => {
 	res.sendStatus(500);
 });
 
-app.listen(process.env.PORT, () =>
+const server = app.listen(process.env.PORT, () =>
 	console.log(`API Listening at http://localhost:${process.env.PORT}`),
 );
+
+const devServer = await startDevServer({
+	logStartMessage: false,
+	config: {
+		watch: true,
+		nodeResolve: true,
+		appIndex: './public/index.html',
+		rootDir: './public',
+		middlewareMode: { server },
+		plugins: [
+			esbuildPlugin({
+				ts: true,
+				target: 'auto-always',
+				tsconfig: './tsconfig.json',
+			}),
+		],
+	},
+});
+
+app.use(devServer.koaApp.callback());

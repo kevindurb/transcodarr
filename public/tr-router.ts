@@ -8,6 +8,7 @@ import './tr-layout.ts';
 import './tr-library-list.ts';
 import './tr-library-files.ts';
 import './tr-preset-list.ts';
+import './tr-preset-create.ts';
 
 @customElement('tr-router')
 export class TRRouter extends LitElement {
@@ -26,6 +27,10 @@ export class TRRouter extends LitElement {
 		{
 			path: '/presets',
 			render: () => html`<tr-preset-list></tr-preset-list>`,
+		},
+		{
+			path: '/presets/new',
+			render: () => html`<tr-preset-create></tr-preset-create>`,
 		},
 	]);
 

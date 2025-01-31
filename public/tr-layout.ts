@@ -36,6 +36,8 @@ export class TRLayout extends LitElement {
         right: 0;
         transition: left 100ms ease-in-out;
         background-color: var(--md-sys-color-surface);
+        box-sizing: border-box;
+        padding: var(--md-sys-spacing-md);
       }
 
       main.nav-open {

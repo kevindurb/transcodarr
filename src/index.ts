@@ -14,13 +14,10 @@ import { TaskController } from './TaskController.ts';
 
 const app = express();
 app.use(bodyParser.json());
-app.use(
-	'/api',
-	MediaLibraryController,
-	TaskController,
-	LibraryFileController,
-	PresetController,
-);
+app.use('/api', MediaLibraryController, LibraryFileController);
+
+app.use('/api/tasks', new TaskController().getRouter());
+app.use('/api/presets', new PresetController().getRouter());
 
 app.use((err: unknown, _: Request, res: Response, next: NextFunction) => {
 	if (res.headersSent) {

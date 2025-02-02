@@ -1,26 +1,27 @@
-import { Router } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { z } from 'zod';
+import { Controller } from './Controller.ts';
 import { PresetRepository } from './PresetRepository.ts';
 
-const presetRepository = new PresetRepository();
-const controller = Router();
-export { controller as PresetController };
+export class PresetController extends Controller {
+	static CreatePresetBody = z
+		.object({
+			name: z.string(),
+			data: z.string(),
+		})
+		.strict();
 
-const CreatePresetBody = z
-	.object({
-		name: z.string(),
-		data: z.string(),
-	})
-	.strict();
+	private presetRepository = new PresetRepository();
 
-controller.get('/presets', async (_, res) => {
-	res.status(200).send(await presetRepository.getAll());
-});
+	override async list(_: Request, res: Response) {
+		res.status(200).send(await this.presetRepository.getAll());
+	}
 
-controller.post('/presets', async (req, res) => {
-	const id = await presetRepository.create(
-		await CreatePresetBody.parseAsync(req.body),
-	);
+	override async create(req: Request, res: Response) {
+		const id = await this.presetRepository.create(
+			await PresetController.CreatePresetBody.parseAsync(req.body),
+		);
 
-	res.status(200).send(await presetRepository.getOne(id));
-});
+		res.status(200).send(await this.presetRepository.getOne(id));
+	}
+}

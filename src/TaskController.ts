@@ -1,18 +1,24 @@
-import { Router } from 'express';
+import type { Request, Response } from 'express';
+import { Controller } from './Controller.ts';
 import { MediaLibraryRepository } from './MediaLibraryRepository.ts';
 import { ScanLibraryService } from './ScanLibraryService.ts';
 
-const mediaLibraryRepository = new MediaLibraryRepository();
-const scanLibraryService = new ScanLibraryService();
-const router = Router();
-export { router as TaskController };
+export class TaskController extends Controller {
+	mediaLibraryRepository = new MediaLibraryRepository();
+	scanLibraryService = new ScanLibraryService();
 
-router.post('/tasks/scan_library', async (_, res) => {
-	const libraries = await mediaLibraryRepository.getAll();
-
-	for (const library of libraries) {
-		await scanLibraryService.scanLibrary(library);
+	constructor() {
+		super();
+		this.router.post('/scan_library', this.scanLibrary);
 	}
 
-	res.sendStatus(200);
-});
+	async scanLibrary(_: Request, res: Response) {
+		const libraries = await this.mediaLibraryRepository.getAll();
+
+		for (const library of libraries) {
+			await this.scanLibraryService.scanLibrary(library);
+		}
+
+		res.sendStatus(200);
+	}
+}
